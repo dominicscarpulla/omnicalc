@@ -16,16 +16,20 @@ class CalculationsController < ApplicationController
     text_wo_linefeed = text_wo_spaces.gsub("\n","")
     text_wo_cr = text_wo_linefeed.gsub("\r","")
     text_wo_tabs = text_wo_cr.gsub("\t","")
+    text_wo_tabs_downcase = text_wo_tabs.downcase
+
+
 
 
     @word_count = @text.split.length
 
     @character_count_without_spaces = text_wo_tabs.length
 
-    a = @text
-
-
-    @occurrences = a.split.count(@special_word)
+    a = @text.downcase
+    text_wo_punctuation = a.gsub(/[^a-z0-9\s]/i, "")
+    split_a = text_wo_punctuation.split
+    lower_special = @special_word.downcase
+    @occurrences = split_a.count(lower_special)
 
     # ================================================================================
     # Your code goes above.
@@ -94,7 +98,7 @@ class CalculationsController < ApplicationController
     @sorted_numbers = @numbers.sort
 
     @count = @numbers.count
-    
+
     @minimum = @sorted_numbers. fetch(0)
 
     @maximum = @sorted_numbers.max
